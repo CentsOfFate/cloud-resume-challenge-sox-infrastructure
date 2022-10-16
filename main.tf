@@ -1,5 +1,10 @@
+variable "subscription_id" {}
+variable "client_secret" {}
+variable "client_id" {}
+variable "tenant_id" {}
+
 terraform {
-    backend "remote" {
+    cloud {
         # The name of your Terraform Cloud organization.
         organization = "MangoBytes"
 
@@ -8,11 +13,33 @@ terraform {
             name = "cloud-resume-challenge"
         }
     }
+
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "~>3.27.0"
+    }
+  }
 }
 
-# An example resource that does nothing.
-resource "null_resource" "example" {
-    triggers = {
-        value = "A example resource that does nothing!"
-    }
+provider "azurerm" {
+   features {}
+
+  subscription_id = var.subscription_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
+  tenant_id       = var.tenant_id
+}
+
+resource "azurerm_resource_group" "dev-rg" {
+  name     = "development-resource-group"
+  location = "Central US"
+}
+
+resource "azurerm_static_site" "crc-sox" {
+  name                = "crc-sox"
+  resource_group_name = "development-resource-group"
+  location            = "Central US"
+  sku_tier            = "Free"
+  sku_size            = "Free"
 }
