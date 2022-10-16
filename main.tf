@@ -4,26 +4,26 @@ variable "client_id" {}
 variable "tenant_id" {}
 
 terraform {
-    cloud {
-        # The name of your Terraform Cloud organization.
-        organization = "MangoBytes"
+  cloud {
+    # The name of your Terraform Cloud organization.
+    organization = "MangoBytes"
 
-        # The name of the Terraform Cloud workspace to store Terraform state files in.
-        workspaces {
-            name = "cloud-resume-challenge"
-        }
+    # The name of the Terraform Cloud workspace to store Terraform state files in.
+    workspaces {
+      name = "cloud-resume-challenge"
     }
+  }
 
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = "~>3.27.0"
     }
   }
 }
 
 provider "azurerm" {
-   features {}
+  features {}
 
   subscription_id = var.subscription_id
   client_id       = var.client_id
