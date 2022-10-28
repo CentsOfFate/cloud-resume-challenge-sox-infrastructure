@@ -34,6 +34,7 @@ jobs:
     - name: Terraform Format
       id: fmt
       run: terraform fmt -check
+      working-directory: ./dev
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -44,12 +45,14 @@ jobs:
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
+      working-directory: ./dev
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
       if: github.event_name == 'pull_request'
       run: terraform plan -input=false
+      working-directory: ./dev
       continue-on-error: true
 
     - name: Update Pull Request
@@ -111,6 +114,7 @@ jobs:
     - name: Terraform Format
       id: fmt
       run: terraform fmt -check
+      working-directory: ./test
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -121,12 +125,14 @@ jobs:
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
+      working-directory: ./test
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
       if: github.event_name == 'pull_request'
       run: terraform plan -input=false
+      working-directory: ./test
       continue-on-error: true
 
     - name: Update Pull Request
@@ -188,6 +194,7 @@ jobs:
     - name: Terraform Format
       id: fmt
       run: terraform fmt -check
+      working-directory: ./prod
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -198,12 +205,14 @@ jobs:
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
+      working-directory: ./prod
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
       if: github.event_name == 'pull_request'
       run: terraform plan -input=false
+      working-directory: ./prod
       continue-on-error: true
 
     - name: Update Pull Request
