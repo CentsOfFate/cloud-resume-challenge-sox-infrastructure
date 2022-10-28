@@ -1,14 +1,4 @@
 terraform {
-  cloud {
-    # The name of your Terraform Cloud organization.
-    organization = "MangoBytes"
-
-    # The name of the Terraform Cloud workspace to store Terraform state files in.
-    workspaces {
-      name = "cloud-resume-challenge"
-    }
-  }
-
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
