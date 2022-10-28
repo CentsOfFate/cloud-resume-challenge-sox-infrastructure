@@ -13,5 +13,5 @@ variable "tenant_id" {
 variable "resource_group" {
 }
 
-variable "static_site" {
+variable "static_site_name" {
 }
