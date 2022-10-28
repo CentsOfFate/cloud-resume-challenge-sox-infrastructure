@@ -31,8 +31,13 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+    - name: Terraform Format
+      id: fmt
+      run: terraform fmt -check
+
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
+      id: init
       run: terraform init -lock=false -input=false
 
     - name: Terraform Validate
@@ -41,7 +46,10 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      id: plan
+      if: github.event_name == 'pull_request'
       run: terraform plan -input=false -var-file="dev.tfvars"
+      continue-on-error: true
 
     - name: Update Pull Request
       uses: actions/github-script@v6
@@ -105,8 +113,13 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+    - name: Terraform Format
+      id: fmt
+      run: terraform fmt -check
+
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
+      id: init
       run: terraform init -lock=false -input=false
 
     - name: Terraform Validate
@@ -115,7 +128,10 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      id: plan
+      if: github.event_name == 'pull_request'
       run: terraform plan -input=false -var-file="test.tfvars"
+      continue-on-error: true
 
     - name: Update Pull Request
       uses: actions/github-script@v6
@@ -179,8 +195,13 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+    - name: Terraform Format
+      id: fmt
+      run: terraform fmt -check
+
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
+      id: init
       run: terraform init -lock=false -input=false
 
     - name: Terraform Validate
@@ -189,7 +210,10 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      id: plan
+      if: github.event_name == 'pull_request'
       run: terraform plan -input=false -var-file="prod.tfvars"
+      continue-on-error: true
 
     - name: Update Pull Request
       uses: actions/github-script@v6
