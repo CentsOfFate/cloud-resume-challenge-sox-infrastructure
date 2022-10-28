@@ -7,13 +7,8 @@ terraform {
   }
 }
 
-resource "azurerm_resource_group" "dev-rg" {
-  name     = var.resource_group
-  location = "Central US"
-}
-
 resource "azurerm_static_site" "crc-sox" {
-  name                = var.resource_group
+  name                = "CRCSOX-Dev"
   resource_group_name = var.static_site_name
   location            = "Central US"
   sku_tier            = "Free"

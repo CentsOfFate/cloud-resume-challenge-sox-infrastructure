@@ -102,7 +102,7 @@ jobs:
         TF_VAR_client_secret: ${{ secrets.CLIENT_SECRET }}
         TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
         TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
-      run: terraform apply -auto-approve -input=false
+      run: terraform apply -auto-approve -input=false -var-file="./environments/dev.tfvars"
 
   test:
     name: 'Terraform - Test'
@@ -199,7 +199,7 @@ jobs:
         TF_VAR_client_secret: ${{ secrets.CLIENT_SECRET }}
         TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
         TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
-      run: terraform apply -auto-approve -input=false
+      run: terraform apply -auto-approve -input=false -var-file="./environments/test.tfvars"
 
   production:
     name: 'Terraform - Production'
@@ -296,4 +296,4 @@ jobs:
         TF_VAR_client_secret: ${{ secrets.CLIENT_SECRET }}
         TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
         TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
-      run: terraform apply -auto-approve -input=false
+      run: terraform apply -auto-approve -input=false -var-file="./environments/prod.tfvars"
