@@ -10,8 +10,8 @@ variable "client_id" {
 variable "tenant_id" {
 }
 
-variable "crc_resource_group_prod" {
+variable "resource_group" {
 }
 
-variable "crc_static_site_prod" {
+variable "static_site" {
 }

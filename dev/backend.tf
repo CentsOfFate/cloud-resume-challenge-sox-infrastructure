@@ -5,7 +5,7 @@ terraform {
 
     # The name of the Terraform Cloud workspace to store Terraform state files in.
     workspaces {
-      name = "cloud-resume-challenge"
+      name = "cloud_resume_challenge_development"
     }
   }
 
@@ -17,14 +17,14 @@ terraform {
   }
 }
 
-resource "azurerm_resource_group" "crc-rg-dev" {
-  name     = var.crc_resource_group_dev
+resource "azurerm_resource_group" "rg-dev" {
+  name     = var.resource_group
   location = "Central US"
 }
 
-resource "azurerm_static_site" "crc-static-dev" {
-  name                = var.crc_resource_group_dev
-  resource_group_name = var.crc_static_site_dev
+resource "azurerm_static_site" "static-dev" {
+  name                = var.static_site_name
+  resource_group_name = var.resource_group
   location            = "Central US"
   sku_tier            = "Free"
   sku_size            = "Free"
