@@ -86,7 +86,7 @@ jobs:
   test:
     name: 'Terraform - Test'
     runs-on: ubuntu-latest
-    needs: dev
+    needs: development
     environment: test
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
