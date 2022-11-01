@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
   pull-requests: write
 
 jobs:
@@ -25,9 +26,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Log in to Azure using OIDC
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.CLIENT_ID }}
+        tenant-id: ${{ secrets.TENANT_ID }}
+        subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
+
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
+
+    - name: Setup TFLint
+      uses: terraform-linters/setup-tflint@v1
 
     - name: Terraform Format
       id: fmt
@@ -38,9 +49,9 @@ jobs:
       id: init
       env:
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+        ARM_USE_OIDC: true
       run: terraform init -lock=false -input=false
 
     - name: Terraform Validate
@@ -50,12 +61,11 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      if: github.event_name == 'pull_request'
       env:
-        TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
-        TF_VAR_client_secret: ${{ secrets.CLIENT_SECRET }}
-        TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
-        TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
+        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+        ARM_USE_OIDC: true
       run: terraform plan -input=false -var-file="./environments/dev.tfvars"
       continue-on-error: true
 
@@ -98,10 +108,10 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       env:
-        TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
-        TF_VAR_client_secret: ${{ secrets.CLIENT_SECRET }}
-        TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
-        TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
+        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+        ARM_USE_OIDC: true
       run: terraform apply -auto-approve -input=false -var-file="./environments/dev.tfvars"
 
   test:
@@ -135,9 +145,9 @@ jobs:
       id: init
       env:
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+        ARM_USE_OIDC: true
       run: terraform init -lock=false -input=false
 
     - name: Terraform Validate
@@ -147,12 +157,11 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      if: github.event_name == 'pull_request'
       env:
-        TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
-        TF_VAR_client_secret: ${{ secrets.CLIENT_SECRET }}
-        TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
-        TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
+        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+        ARM_USE_OIDC: true
       run: terraform plan -input=false -var-file="./environments/test.tfvars"
       continue-on-error: true
 
@@ -195,10 +204,10 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       env:
-        TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
-        TF_VAR_client_secret: ${{ secrets.CLIENT_SECRET }}
-        TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
-        TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
+        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+        ARM_USE_OIDC: true
       run: terraform apply -auto-approve -input=false -var-file="./environments/test.tfvars"
 
   production:
@@ -232,9 +241,9 @@ jobs:
       id: init
       env:
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+        ARM_USE_OIDC: true
       run: terraform init -lock=false -input=false
 
     - name: Terraform Validate
@@ -244,12 +253,11 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      if: github.event_name == 'pull_request'
       env:
-        TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
-        TF_VAR_client_secret: ${{ secrets.CLIENT_SECRET }}
-        TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
-        TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
+        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+        ARM_USE_OIDC: true
       run: terraform plan -input=false -var-file="./environments/prod.tfvars"
       continue-on-error: true
 
@@ -292,8 +300,8 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       env:
-        TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
-        TF_VAR_client_secret: ${{ secrets.CLIENT_SECRET }}
-        TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
-        TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
+        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+        ARM_USE_OIDC: true
       run: terraform apply -auto-approve -input=false -var-file="./environments/prod.tfvars"
