@@ -7,7 +7,7 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "terraform-shared"
+    resource_group_name  = "crc-dev"
     storage_account_name = "crcterra"
     container_name       = "tfstate"
     key                  = "prod.teroidc.tfstate"

@@ -1,4 +1,4 @@
-resource "azurerm_static_site" "crc-sox" {
+resource "azurerm_static_site" "site" {
   name                = var.static_site_name
   resource_group_name = var.resource_name
   location            = "Central US"
