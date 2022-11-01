@@ -4,4 +4,7 @@ resource "azurerm_static_site" "crc-sox" {
   location            = "Central US"
   sku_tier            = "Free"
   sku_size            = "Free"
+  tags = {
+    ENV = var.environment
+  }
 }
