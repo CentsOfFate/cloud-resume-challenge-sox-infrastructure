@@ -10,8 +10,8 @@ variable "static_site_name" {
   description = "Static Site Name for Resume Client"
 }
 
-variable "environment" {
+variable "state" {
   type        = string
-  default     = "prod"
+  default     = "prod.tfstate"
   description = "Environment Tag"
 }
