@@ -7,10 +7,10 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "CRCSOX-Dev"
-    storage_account_name = "crcsox"
+    resource_group_name  = "terraform-shared"
+    storage_account_name = "crcterra"
     container_name       = "tfstate"
-    key                  = "dev.teroidc.tfstate"
+    key                  = "prod.teroidc.tfstate"
   }
 }
 
