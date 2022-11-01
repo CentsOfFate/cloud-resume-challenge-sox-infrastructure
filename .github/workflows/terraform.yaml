@@ -60,6 +60,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      if: github.event_name == 'pull_request'
       id: plan
       env:
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -156,6 +157,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      if: github.event_name == 'pull_request'
       id: plan
       env:
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -252,6 +254,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      if: github.event_name == 'pull_request'
       id: plan
       env:
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
