@@ -1,3 +1,1 @@
-functions_name = "CRCSOX-Dev"
-static_site_name = "CRCSOX-Client-Dev"
-environment = "dev"
+static_site_name = "CRC-Client-Dev"

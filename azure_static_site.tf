@@ -1,10 +1,7 @@
-resource "azurerm_static_site" "crc-sox" {
+resource "azurerm_static_site" "site" {
   name                = var.static_site_name
-  resource_group_name = "CRCSOX-Dev"
+  resource_group_name = "crc-dev"
   location            = "Central US"
   sku_tier            = "Free"
   sku_size            = "Free"
-  tags = {
-    ENV = var.environment
-  }
 }
