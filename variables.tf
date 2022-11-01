@@ -9,9 +9,3 @@ variable "static_site_name" {
   default     = "CRCSOX-Client-Prod"
   description = "Static Site Name for Resume Client"
 }
-
-variable "state" {
-  type        = string
-  default     = "prod.tfstate"
-  description = "Environment Tag"
-}

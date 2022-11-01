@@ -52,7 +52,7 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.DEV_TENANT_ID }}
         ARM_USE_OIDC: true
-      run: terraform init -lock=false -input=false
+      run: terraform init -lock=false -input=false --backend-config="key=dev.tfstate"
 
     - name: Terraform Validate
       id: validate
@@ -149,7 +149,7 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
         ARM_USE_OIDC: true
-      run: terraform init -lock=false -input=false
+      run: terraform init -lock=false -input=false --backend-config="key=test.tfstate"
 
     - name: Terraform Validate
       id: validate
@@ -246,7 +246,7 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
         ARM_USE_OIDC: true
-      run: terraform init -lock=false -input=false
+      run: terraform init -lock=false -input=false --backend-config="key=prod.tfstate"
 
     - name: Terraform Validate
       id: validate

@@ -10,7 +10,6 @@ terraform {
     resource_group_name  = "crc-dev"
     storage_account_name = "crcterra"
     container_name       = "tfstate"
-    key                  = var.state
   }
 }
 
