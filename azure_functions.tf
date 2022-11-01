@@ -3,4 +3,6 @@ resource "azurerm_windows_function_app" "crcsox" {
   resource_group_name = "CRCSOX-Dev"
   location            = "Central US"
   service_plan_id     = azurerm_service_plan.service.id
+
+  site_config {}
 }
