@@ -7,7 +7,7 @@ resource "azurerm_storage_account" "functions" {
 }
 
 resource "azurerm_service_plan" "functions" {
-  name                = "crcsox-service-plan"
+  name                = var.service_plan_name
   resource_group_name = "crc-dev"
   location            = "Central US"
   os_type             = "Windows"
@@ -15,7 +15,7 @@ resource "azurerm_service_plan" "functions" {
 }
 
 resource "azurerm_windows_function_app" "functions" {
-  name                = "crcsox-functions"
+  name                = var.functions_name
   resource_group_name = "crc-dev"
   location            = "Central US"
 

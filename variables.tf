@@ -15,3 +15,9 @@ variable "functions_name" {
   default     = "crcsox-functions-prod"
   description = "Functions Name"
 }
+
+variable "service_plan_name" {
+  type        = string
+  default     = "crcsox-sp-prod"
+  description = "Service Plan Name"
+}
