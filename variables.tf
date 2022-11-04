@@ -21,3 +21,9 @@ variable "service_plan_name" {
   default     = "crcsox-sp-prod"
   description = "Service Plan Name"
 }
+
+variable "storage_name" {
+  type        = string
+  default     = "crcstoreprod"
+  description = "Storage Name"
+}

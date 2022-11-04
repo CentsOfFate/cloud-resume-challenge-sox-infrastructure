@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "functions" {
-  name                     = "crcfunctionsstorage"
+  name                     = var.storage_name
   resource_group_name      = "crc-dev"
   location                 = "Central US"
   account_tier             = "Standard"
