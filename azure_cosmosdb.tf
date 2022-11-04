@@ -1,5 +1,5 @@
 resource "azurerm_cosmosdb_account" "db" {
-  name                = "crcsox-functions"
+  name                = var.cosmos_name
   location            = "Central US"
   resource_group_name = "crc-dev"
   offer_type          = "Standard"
