@@ -1,2 +1,2 @@
 static_site_name = "CRC-Client-Test"
-cosmos_name = "CRCSOX-Cosmos-Test"
+cosmos_name = "crcsox-client-test"
