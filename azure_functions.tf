@@ -15,7 +15,7 @@ resource "azurerm_service_plan" "functions" {
 }
 
 resource "azurerm_windows_function_app" "functions" {
-  name                = "example-windows-function-app"
+  name                = "crcsox-functions"
   resource_group_name = "crc-dev"
   location            = "Central US"
 
