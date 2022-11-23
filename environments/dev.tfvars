@@ -1,1 +1,1 @@
-static_site_name = "CRC-Client-Dev"
+static_site_name = "CRC-Client-Dev-PR"
