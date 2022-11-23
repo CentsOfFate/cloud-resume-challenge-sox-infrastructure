@@ -6,10 +6,12 @@ terraform {
       version = "~>3.27.0"
     }
   }
-  backend "azurerm" {
-    resource_group_name  = "crc-dev"
-    storage_account_name = "crcterra"
-    container_name       = "tfstate"
+
+  cloud {
+    organization = "MangoBytes"
+    workspaces {
+      name = "cloud-resume-challenge-sox-infrastructure"
+    }
   }
 }
 
