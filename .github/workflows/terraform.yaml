@@ -49,7 +49,7 @@ jobs:
     - name: Terraform Plan
       if: github.event_name == 'pull_request'
       id: plan
-      run: terraform plan -input=false -var-file="./environments/dev.tfvars"
+      run: terraform plan -input=false -lock=false -var-file="./environments/dev.tfvars"
       continue-on-error: true
 
     - name: Update Pull Request
@@ -95,4 +95,4 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
         ARM_USE_OIDC: true
-      run: terraform apply -auto-approve -input=false -var-file="./environments/dev.tfvars"
+      run: terraform apply -auto-approve -input=false -lock=false -var-file="./environments/dev.tfvars"
