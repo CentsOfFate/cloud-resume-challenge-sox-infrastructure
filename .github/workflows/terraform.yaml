@@ -47,6 +47,8 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init -lock=false -input=false
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     - name: Terraform Validate
       id: validate
