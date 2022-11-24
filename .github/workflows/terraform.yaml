@@ -47,11 +47,6 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init -lock=false -input=false
-      env:
-        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
-        ARM_USE_OIDC: true
 
     - name: Terraform Validate
       id: validate
@@ -62,12 +57,6 @@ jobs:
       if: github.event_name == 'pull_request'
       id: plan
       run: terraform plan -input=false -lock=false -var-file="./environments/dev.tfvars"
-      env:
-        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
-        ARM_USE_OIDC: true
-
     - name: Update Pull Request
       uses: actions/github-script@v6
       if: github.event_name == 'pull_request'
@@ -106,9 +95,4 @@ jobs:
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      env:
-        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
-        ARM_USE_OIDC: true
       run: terraform apply -auto-approve -input=false -lock=false -var-file="./environments/dev.tfvars"
