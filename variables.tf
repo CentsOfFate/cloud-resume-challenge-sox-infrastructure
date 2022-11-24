@@ -1,6 +1,6 @@
 variable "client_id" {
   type    = string
-  default = ""
+  default = "6e0f5b8e-06f6-42b7-b95d-aadf94454424"
 }
 
 variable "client_secret" {
@@ -15,7 +15,7 @@ variable "subscription_id" {
 
 variable "tenant_id" {
   type    = string
-  default = ""
+  default = "635011f6-2cb3-4c43-924c-21cff75151bf"
 }
 
 variable "static_site_name" {
